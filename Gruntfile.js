@@ -1,4 +1,4 @@
-// Generated on 2013-12-18 using generator-angular 0.6.0
+// Generated on 2014-01-26 using generator-angular 0.6.0
 'use strict';
 
 // # Globbing
@@ -240,7 +240,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>',
-          src: ['*.html', 'views/*.html'],
+          src: ['*.html', 'views/**/*.html'],
           dest: '<%= yeoman.dist %>'
         }]
       }
