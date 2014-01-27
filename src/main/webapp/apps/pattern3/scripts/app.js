@@ -3,7 +3,7 @@
 var config = {
 	// url : 'http://localhost\\:3000',
 	// url: 'http://sheeprails.herokuapp.com',
-	url : 'http://localhost\\:8080/rest',
+	url : 'http://localhost\\:9000/rest',
 	// url : '/pattern/pt42/masterdetail',
 	server : 'spring', // spring, rails,
 	centers : {}

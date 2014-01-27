@@ -1,4 +1,4 @@
-// Generated on 2014-01-26 using generator-angular 0.6.0
+// Generated on 2013-12-18 using generator-angular 0.6.0
 'use strict';
 
 // # Globbing
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
     // Project settings
     yeoman: {
       // configurable paths
-      app: require('./bower.json').appPath || 'app',
+      app: require('./bower.json').appPath || 'src/main/webapp',
       dist: 'dist'
     },
 
@@ -275,11 +275,12 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,png,txt}',
+            '*.{ico,png,txt,html}',
             '.htaccess',
             'bower_components/**/*',
             'images/{,*/}*.{webp}',
-            'fonts/*'
+            'fonts/*',
+            'WEB-INF/*'
           ]
         }, {
           expand: true,
