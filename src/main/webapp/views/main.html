@@ -1,7 +1,6 @@
 <div class="header">
 	<ul class="nav nav-pills pull-right">
 	</ul>
-	<h3 class="text-muted">PBF angular.js</h3>
 </div>
 
 <div class="panel panel-default">
@@ -10,144 +9,39 @@
 	</div>
 </div>
 
-<div id="fb-root"></div>
-<script
-	src="http://connect.facebook.net/en_US/all.js#appId=229823833732087&amp;xfbml=1"></script>
-<fb:login-button autologoutlink="true"
-	scope="email,publish_stream,offline_access,friends_birthday,friends_location,friends_photos,friends_about_me,read_friendlists,read_friendlists,friends_hometown,user_location,user_hometown,user_website,user_birthday,user_groups,friends_groups,user_online_presence"
-	size="large"></fb:login-button>
-<script>
-	var once = false;
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : '183526705025686', // Set YOUR APP ID
-			channelUrl : 'http://colocal.doosan.com:9000/', // Channel File
-			status : true, // check login status
-			cookie : true, // enable cookies to allow the server to access the session
-			xfbml : true
-		// parse XFBML
-		});
+<link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css">
+<link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css">
 
-		FB.getLoginStatus(function(response) {
-			if (response.status === 'connected') {
-				var uid = response.authResponse.userID;
-				var accessToken = response.authResponse.accessToken;
-				getUserInfo();
-				getFriends(response);
+<style>
 
-			} else if (response.status === 'not_authorized') {
-				document.getElementById("status").innerHTML = 'Click on the button to start the demo:<button class="btn btn-primary  btn-large" onclick="Login()" >Login with Facebook</button>';
-			} else {
-				document.getElementById("status").innerHTML = 'Click on the button to start the demo:<button class="btn btn-primary  btn-large" onclick="Login()" >Login with Facebook</button>';
-			}
-		});
+.ngdialog-content {
+  background: white;
+  -webkit-backface-visibility: hidden;
+  -webkit-animation: ngdialog-fadein 0.5s;
+  animation: ngdialog-fadein 0.5s;
+  width:70%; 
+  width:70%; 
+  margin-left:auto;
+  margin-right:auto;
+}
 
-		FB.Event.subscribe('auth.authResponseChange', function(response) {
-			if (response.status === 'connected') {
-				document.getElementById("message").innerHTML += "<br>Connected to Facebook";
-			} else if (response.status === 'not_authorized') {
-				document.getElementById("message").innerHTML += "<br>Failed to Connect";
-			} else {
-				document.getElementById("message").innerHTML += "<br>Logged Out";
-			}
-		});
-
-	};
-
-	function Login() {
-		FB.login(function(response) {
-			if (response.authResponse) {
-				getUserInfo();
-			} else {
-				console.log('User cancelled login or did not fully authorize.');
-			}
-		}, {
-			scope : 'email,user_photos,user_videos'
-		});
-
-	}
-
-	function getUserInfo() {
-		FB.api('/me', function(response) {
-			var str = "<b>Name</b> : " + response.name + "<br>";
-			str += "<b>Link: </b>" + response.link + "<br>";
-			str += "<b>Username:</b> " + response.username + "<br>";
-			str += "<b>id: </b>" + response.id + "<br>";
-			str += "<b>Email:</b> " + response.email + "<br>";
-			str += "<button class='btn btn-info' onclick='getPhoto();'>Get Photo</button>&nbsp;";
-			str += "<button class='btn btn-primary'  onclick='Logout();'>Logout</button>";
-			document.getElementById("status").innerHTML = str;
-		});
-	}
-	
-	function getPhoto() {
-		FB.api('/me/picture?type=normal', function(response) {
-			var str = "<br/><b>Pic</b> : <img src='"+response.data.url+"'/>";
-			document.getElementById("status").innerHTML += str;
-		});
-
-	}
-	
-	function getFriends(response) {
-		var globaluserid = response.authResponse.userID;
-		FB.api(
-		{
-			method : 'fql.query',
-			query : 'SELECT uid2 FROM friend WHERE uid1=' + globaluserid
-		},
-
-		function(response) {
-			for (i = 0; i < response.length; i++) {
-				FB.api({
-					method : 'fql.query',
-					query : 'SELECT name,pic_square FROM user WHERE uid=' + response[i].uid2
-				}, function(response) {
-					htmlcontent = '<img src='+response[0].pic_square+' title='+response[0].name+' />';
-					$("#friendslist").append(htmlcontent);
-				});
-			}
-		});
-	}
-	
-	function Logout() {
-		FB.logout(function() {
-			document.location.reload();
-		});
-	}
-
-	(function(d) {
-		var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-		if (d.getElementById(id)) {
-			return;
-		}
-		js = d.createElement('script');
-		js.id = id;
-		js.async = true;
-		js.src = "//connect.facebook.net/en_US/all.js";
-		ref.parentNode.insertBefore(js, ref);
-	}(document));
-
-</script>
+</style>
 
 <div align="center">
-	<h2>Facebook OAuth Javascript Demo</h2>
+	<h2>Search for the Artist</h2>
 
-	<div id="status">
-		<!-- 		Click on Below Image to start the demo: <br /> <img -->
-		<!-- 			src="http://hayageek.com/examples/oauth/facebook/oauth-javascript/LoginWithFacebook.png" -->
-		<!-- 			style="cursor: pointer;" onclick="Login()" /> -->
+	<div ng-controller="MainCtrl">
+		<button class="btn btn-primary" type="button" ng-click="openTemplate()">Search for artist</button>
 	</div>
-
-	<div id="friendslist"></div>
 	
-	<br /> <br /> <br /> <br /> <br />
-
-	<div id="message">
-		Logs:<br />
-	</div>
-
 </div>
 
+<div>
+ <br>
+	<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+</div>
+
+
 <div class="footer">
-	<p>from the topzone2013 team</p>
+	<p>It took 3 hours.</p>
 </div>

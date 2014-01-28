@@ -9,6 +9,7 @@ app.factory('MessageCtrl', function () {
 		$scope.alert = function (type, msgId, param) {
 	        var alerts = [{ type: 'success', msgId: 'pbf.success', msg: '@ sucess!' },
 	                      { type: 'info', msgId: 'pbf.nodata', msg: 'No data!' },
+	                      { type: 'info', msgId: 'pbf.fixed', msg: 'Data must be @!' },
 	                      { type: 'required', msgId: 'pbf.required', msg: '@ required!' },
 	                      { type: 'error', msgId: 'pbf.error', msg: '@ error!' }
 	                      ];

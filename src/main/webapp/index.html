@@ -73,7 +73,7 @@ html,body {
 <!-- dddddddddd end -->
 
 </head>
-  <body ng-app="sheepwebApp" ng-controller="NavbarCtrl">
+  <body ng-app="artistSearch" ng-controller="NavbarCtrl">
 
     <!-- Add your site or application content here -->
     <section ui-view></section>
@@ -117,10 +117,12 @@ html,body {
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<script src="bower_components/ngDialog/js/ngDialog.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
+        <script src="scripts/common/utils/message.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/common/controllers/navbar.js"></script>
         <script src="scripts/common/controllers/main.js"></script>

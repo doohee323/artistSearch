@@ -1,45 +1,59 @@
 'use strict';
 
-angular.module('sheepwebApp')
-.controller('MainCtrl',function($scope) {
-	$scope.title = 'UI Pattern driven!';
-	$scope.slogan = 'Always a pleasure copying your apps.';
+angular.module('artistSearch').controller('MainCtrl', function($scope, ngDialog) {
 
-	$scope.patterns = [
-		{
-			name : 'P1 Single Detail',
-			image : 'images/1.png',
-			desc : 'Perform on a screen for CRUD actions.',
-			sample : 'apps/pattern1/index.html'
-		},
-		{
-			name : 'P2 Multi Detail (Edit)',
-			image : 'images/2.png',
-			desc : 'Retrieve list and perform CRUD actions for multi-rows on a screen.',
-			sample : 'apps/pattern2/index.html'
-		},
-		{
-			name : 'P3 Multi Detail (List to Edit)',
-			image : 'images/3.png',
-			desc : 'Retrieve list and perform CRUD actions for 1 row using by two screens.',
-			sample : 'apps/pattern3/index.html'
-		},
-		{
-			name : 'P4 Master / Detail [1:n]',
-			image : 'images/4.png',
-			desc : 'Retrieve single master data and perform CRUD actions for multi detail data on a screen.',
-			sample : 'apps/pattern4/index.html'
-		},
-		{
-			name : 'P5 Master / Detail [n:1]</h4>',
-			image : 'images/5.png',
-			desc : 'Retrieve multi master data and perform CRUD actions for sigle detail data on a screen.',
-			sample : '/'
-		},
-		{
-			name : 'P6 Master / Detail [n:n]',
-			image : 'images/6.png',
-			desc : 'Retrieve multi master data and perform CRUD actions for multi detail data on a screen.',
-			sample : '/'
-		} ];
+	$scope.openTemplate = function() {
+		ngDialog.open({
+			template : 'views/artistList.html',
+			className : 'ngdialog-theme-plain',
+			scope : $scope
+		});
+	}
+
+});
+
+
+angular.module('artistSearch').controller('ArtistCtrl', function($scope, $http, ngDialog, MessageCtrl) {
+
+    MessageCtrl.init($scope);
+
+	$scope.searchArtist = function() {
+	   	$scope.alerts = [];
+    	if(!$scope.queryArtistName) {
+    		$scope.alert('required', 'pbf.required', '[Artist Name]');
+    		return;
+    	}
+    	if(!$scope.queryArtistName) {
+    		$scope.alert('required', 'pbf.fixed', '[jack]');
+    		return;
+    	}
+
+		if(!$scope.queryFetchCnt) {
+			alert('FetchCnt is required.')
+    		$scope.alert('required', 'pbf.required', '[Fetch Cnt]');
+    		return;
+		}
+		if($scope.queryFetchCnt != 4) {
+			alert('FetchCnt must be 4.')
+    		$scope.alert('info', 'pbf.fixed', '[4]');
+    		return;
+		}
+		
+    	$scope.alerts = [];
+    	//var url = "http://itunes.apple.com/search?term="+$scope.queryArtistName+"artistName''&limit="+$scope.queryFetchCnt;
+    	var url = "http://itunes.apple.com/search?term=artistName&limit=1";
+
+    	$http({method: 'JSONP', url: url}).
+	      success(function(data, status) {
+	      	debugger
+	        $scope.status = status;
+	        $scope.artists = data;
+	      }).
+	      error(function(data, status) {
+	      	debugger
+	        $scope.data = data || "Request failed";
+	        $scope.artists = status;
+	    });
+	}
+
 });
