@@ -1,0 +1,53 @@
+
+<div ng-controller="ArtistCtrl">
+	<div class="page-header">
+		<br>
+	    <h2>Artist</h2>
+	</div>
+
+	<form class="form-horizontal" role="form" name="myForm">
+	  <div class='panel-heading' style='height:55px;width:95%; margin-left:auto; margin-right:auto;' >
+	    <label class="col-sm-2" for="queryArtistName">Artist Name</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="queryArtistName" ng-model="queryArtistName" placeholder="Enter Artist Name" required>
+			<span class="error" ng-show="myForm.queryArtistName.$error.required">
+				<div class="alert alert-warning">Required!</div>
+			</span>
+		</div>
+	    <label class="col-sm-2" for="queryFetchCnt">Fetch Count</label>
+		<div class="col-sm-3">
+			<select ng-model="queryFetchCnt" style="width:100px;" placeholder="Select Fetch Cnt" required>
+		        <option value="1">1</option>
+		        <option value="2">2</option>
+		        <option value="3">3</option>
+		        <option value="4">4</option>
+		    </select>
+			<span class="error" ng-show="myForm.queryFetchCnt.$error.required">
+				<div class="alert alert-warning">Required!</div>
+			</span>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-primary" type="button" ng-click="searchArtist()">Search for artist</button>
+		</div>
+	  </div>
+	</form>
+	
+	  <div class="form-group">
+	    <div class="col-xs-12">
+            <label for="artistName">artistName</label>
+            <input ng-model="artists.artistName" type="text" class="form-control" ng-disabled="true" placeholder="artistName">
+        </div>
+        <div class="col-xs-12">
+            <label for="trackName">trackName</label>
+            <input ng-model="artists.trackName" type="text" class="form-control" placeholder="trackName">
+        </div>
+        <div class="col-xs-12">
+            <label for="artworkUrl30">artworkUrl30</label>
+            <input ng-model="artists.artworkUrl30" type="text" class="form-control" placeholder="artworkUrl30">
+        </div>
+        <div>
+	        <br>
+			<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+		</div>
+	  </div>
+</div>    
